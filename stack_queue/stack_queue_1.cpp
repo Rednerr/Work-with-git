@@ -5,7 +5,7 @@ struct queue{
     int inf;
     queue *next;
 };
-
+  
 void push(queue *&h,queue *&t, int x){ // указатель на голову, конец, значение
     queue *r = new queue; // cоздаём новый элемент
     r->inf=x;
