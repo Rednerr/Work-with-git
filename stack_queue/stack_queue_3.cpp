@@ -31,21 +31,19 @@ int pop(queue *&h,queue *&t){
 }
 
 void repl(queue *&h,queue *&t){
-    int min_val = h->inf; 
-    queue *temp = h; //временный указатель
-    while(temp && temp->next){   // пока не дошли до конца очереди
-        if (temp->inf == temp->next->inf){
-            queue *clone = temp->next;
-            temp->next = clone->next;
-            if (!temp->next){
-                t = temp;
-            }
-            delete clone;
+    queue *temp_h = NULL;
+    queue *temp_t = NULL;
+    int x = pop(h,t);
+    push(temp_h,temp_t, x);
+    while(h){
+        int y = pop(h,t);
+        if (x != y){
+            push(temp_h,temp_t, y);
+            x = y;
         }
-        else{
-            temp = temp->next;
-        }
-    }
+    } 
+    h = temp_h; //обновляем указать не новую голову
+    t = temp_t; //обновляем указатель на новый хвост
 }
 
 void print_queue(queue *h) {

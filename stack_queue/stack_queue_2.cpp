@@ -43,25 +43,27 @@ void printStack(stack *h) {
 }
 
 void repl(stack *&h) {
-    if (!h) return;
-    int max_val = h->inf;
-    int min_val = h->inf;
-    stack *temp = h;
-    while (temp) {
-        if (temp->inf > max_val) max_val = temp->inf;
-        if (temp->inf < min_val) min_val = temp->inf;
-        temp = temp->next;
-    }
-    reverse(h);
-    stack *res = NULL;     // Создаём результирующий стек
-    while (h) {
+    int min_val = INT_MAX;
+    int max_val = INT_MIN;
+    stack *temp_h = NULL;
+    while(h){
         int x = pop(h);
+        if (x < min_val){
+            min_val = x;
+        }
+        if (x > max_val){
+            max_val = x;
+        }
+        push(temp_h, x);
+    } 
+    stack *res = NULL;     // Создаём результирующий стек
+    while (temp_h) {
+        int x = pop(temp_h);
         push(res, x);
         if (x == max_val) {
             push(res, min_val);
         }
     }
-    
     // Переворачиваем результат для правильного вывода
     h = res; 
 }

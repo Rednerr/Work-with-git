@@ -31,31 +31,32 @@ int pop(queue *&h,queue *&t){
 }
 
 void repl(queue *&h,queue *&t){
-    int min_val = h->inf; 
-    queue *temp = h; //временный указатель
-    while(temp){   // пока не дошли до конца очереди
-        if (temp->inf < min_val)
-            min_val = temp->inf;
-        temp = temp->next; //берём следующий элемент
-    }
+    int min_val = INT_MAX;
     int last_odd;
+    queue *temp_h = NULL;
+    queue *temp_t = NULL;
     bool odd = true;
-    temp = h;//временный указатель на голову
-    while(temp){
-        if (temp->inf %2 != 0){
-            last_odd = temp->inf;
+    while(h){
+        int x = pop(h,t);
+        if (x < min_val){
+            min_val = x;
+        }
+        if (x % 2 != 0){
+            last_odd = x;
             odd = false;
         }
-        temp = temp->next;
-    }
+        push(temp_h,temp_t, x);
+    } 
     if (odd){
         cout << "Нечётных нет" << endl;
+        h = temp_h;
+        t = temp_t;
         return;
     }
     queue *res_h = NULL; // голова новой очереди
     queue *res_t = NULL; // хвост
-    while (h){
-        int x = pop(h, t); //извлекаем элемент из исходной
+    while (temp_h){
+        int x = pop(temp_h, temp_t); //извлекаем элемент из исходной
         push(res_h, res_t, x); // добавляем в новую
         if (x == min_val){
             push(res_h,res_t,last_odd);

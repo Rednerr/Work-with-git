@@ -46,23 +46,23 @@ void repl(stack *&stak) {
     if (!stak) return;
     char sogl[] = {'q','w', 'r', 't', 'p', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'z', 'x', 'c', 'v', 'b', 'n', 'm'};
     bool soglas = true;
-    stack *temp = NULL;
+    stack *res = NULL;
     int n1 = sizeof(sogl) / sizeof(sogl[0]);
     reverse(stak);
     while(stak){
         char x = pop(stak);
-        push(temp, x);
+        push(res, x);
         if (soglas){
             for(int i = 0; i < n1; i++){
                 if (x == sogl[i]){
                     soglas = false;
-                    push(temp, '!');
+                    push(res, '!');
                     break;
                 }   
             }
         }    
     }
-    stak = temp; 
+    stak = res; 
 }
 
 int main() {
