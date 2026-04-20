@@ -57,14 +57,18 @@ list *find(list *h, list *t){
     return 0;
 }
 
-void repl(list *&h, list *&t, list *prostoe){
-    list *p = prostoe->prev;
-    t->next = h;
-    h->prev = t;
-    h = prostoe;
-    t = p;
-    t->next = NULL;
+void repl(list *&h, list *&t, list *prostoe){ //с
+    list *p = prostoe->prev; //узел, который был перед cписком простых
+    t->next = h; //хвост на голову
+    h->prev = t; //голова на хвост
+    h = prostoe; // новая голова начало списка простого
+    t = p; // новй хвост узел p 
+    t->next = NULL; // хвост не указывает вперёд и также голова назад
     h->prev = NULL;
+    list *last = t; // удаляем последний 
+    t = last->prev;
+    t->next = NULL;
+    delete last;
 }
 
 void del_list(list *&h){
@@ -77,10 +81,10 @@ void del_list(list *&h){
 
 int main(){
     setlocale(LC_ALL, "RUS");
-    int a[] = {8, 2, 1, 6, 8, 8, 1, 2, 2, 8, 2};
+    int a[] = {4, 8, 6, 9, 1, 2, 3, 4, 5, 7};
     int n = sizeof(a) / sizeof(a[0]);
     list *head = NULL;
-    list *tail = NULL;
+    list *tail = NULL;  
     for (int i = 0; i < n; i++) {
         push(head, tail, a[i]);
     }
