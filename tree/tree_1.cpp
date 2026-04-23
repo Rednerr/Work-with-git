@@ -17,15 +17,31 @@ tree *node(int x){
     return  n;
 }
 
-void postorder(tree *tr){ // обратный обход
-    if(tr){
-        postorder(tr->left);
-        postorder(tr->right);
-        cout << tr->inf << " ";
+void grandchild(tree *tr){ // обратный обход
+    if (!tr){
+        cout << "Такого узла нет";
+        return;
+    }
+    if(tr->left){
+        if(tr->left->left){
+            cout << tr->left->left->inf << " ";
+        }
+        if(tr->left->right){
+            cout << tr->left->right->inf << " ";
+        }
+    }
+    
+    if(tr->right){
+        if(tr->right->left){
+            cout << tr->right->left->inf << " ";
+        }
+        if(tr->right->right){
+            cout << tr->right->right->inf << " ";
+        }
     }
 }
 
-void inorder(tree *tr){ // обратный обход
+void inorder(tree *tr){ // прямой обход
     if(tr){
         inorder(tr->left);
         cout << tr->inf << " ";
@@ -92,6 +108,6 @@ int main(){
     inorder(tr);
     cout << endl;
     cout << "Внуки X: ";
-    postorder(find(tr, x));
+    grandchild(find(tr, x));
     return 0;
 }
