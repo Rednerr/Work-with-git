@@ -1,0 +1,79 @@
+PWD c:\Users\redner\Desktop\сит\LATEX\First
+INPUT C:\Users\redner\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
+INPUT c:\Users\redner\Desktop\сит\LATEX\First\Избранные произведения.tex
+OUTPUT Избранные произведения.log
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\base\size11.clo
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\base\size11.clo
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\base\size11.clo
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\fonts\tfm\public\cm\cmr10.tfm
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\base\fontenc.sty
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\base\fontenc.sty
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\cyrillic\t2aenc.def
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\cyrillic\t2aenc.def
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\cyrillic\t2aenc.def
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\base\t2aenc.dfu
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\base\t2aenc.dfu
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\base\t2aenc.dfu
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\cyrillic\t2acmr.fd
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\cyrillic\t2acmr.fd
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\cyrillic\t2acmr.fd
+INPUT C:\Users\redner\AppData\Local\MiKTeX\fonts\tfm\lh\lh-t2a\larm1095.tfm
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\base\inputenc.sty
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\base\inputenc.sty
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\cyrillic\cp1251.def
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\cyrillic\cp1251.def
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\cyrillic\cp1251.def
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\generic\babel\babel.sty
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\generic\babel\babel.sty
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\generic\babel\txtbabel.def
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\arabi\bblopts.cfg
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\arabi\bblopts.cfg
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\arabi\bblopts.cfg
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\generic\babel\locale\ru\babel-russian.tex
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\generic\babel\locale\ru\babel-russian.tex
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\generic\babel\locale\ru\babel-russian.tex
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\generic\babel\locale\ru\babel-ru.ini
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\babel-russian\russianb.ldf
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\babel-russian\russianb.ldf
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\babel-russian\russianb.ldf
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\sectsty\sectsty.sty
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\sectsty\sectsty.sty
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
+INPUT C:\Users\redner\AppData\Local\Programs\MiKTeX\tex\latex\l3backend\l3backend-pdftex.def
+INPUT .\Избранные произведения.aux
+INPUT .\Избранные произведения.aux
+INPUT Избранные произведения.aux
+OUTPUT Избранные произведения.aux
+INPUT C:\Users\redner\AppData\Local\MiKTeX\fonts\tfm\lh\lh-t2a\larm1728.tfm
+INPUT C:\Users\redner\AppData\Local\MiKTeX\fonts\tfm\lh\lh-t2a\labx1728.tfm
+INPUT C:\Users\redner\AppData\Local\MiKTeX\fonts\tfm\lh\lh-t2a\larm1440.tfm
+INPUT C:\Users\redner\AppData\Local\MiKTeX\fonts\tfm\lh\lh-t2a\labx1440.tfm
+INPUT .\pakin.tex
+INPUT .\pakin.tex
+INPUT pakin.tex
+INPUT C:\Users\redner\AppData\Local\MiKTeX\fonts\tfm\lh\lh-t2a\lati1095.tfm
+OUTPUT Избранные произведения.pdf
+INPUT C:\Users\redner\AppData\Local\MiKTeX\fonts\map\pdftex\pdftex.map
+INPUT .\basnya.tex
+INPUT .\basnya.tex
+INPUT basnya.tex
+INPUT .\noch.tex
+INPUT .\noch.tex
+INPUT noch.tex
+INPUT .\unnamedy.tex
+INPUT .\unnamedy.tex
+INPUT unnamedy.tex
+INPUT .\simpthonya.tex
+INPUT .\simpthonya.tex
+INPUT simpthonya.tex
+INPUT Избранные произведения.aux
+INPUT C:\Users\redner\AppData\Local\MiKTeX\fonts\pk\ljfour\lh\lh-t2a\dpi600\larm1095.pk
+INPUT C:\Users\redner\AppData\Local\MiKTeX\fonts\pk\ljfour\lh\lh-t2a\dpi600\larm1095.pk
+INPUT C:\Users\redner\AppData\Local\MiKTeX\fonts\pk\ljfour\lh\lh-t2a\dpi600\lati1095.pk
+INPUT C:\Users\redner\AppData\Local\MiKTeX\fonts\pk\ljfour\lh\lh-t2a\dpi600\lati1095.pk
+INPUT C:\Users\redner\AppData\Local\MiKTeX\fonts\pk\ljfour\lh\lh-t2a\dpi600\labx1440.pk
+INPUT C:\Users\redner\AppData\Local\MiKTeX\fonts\pk\ljfour\lh\lh-t2a\dpi600\labx1440.pk
+INPUT C:\Users\redner\AppData\Local\MiKTeX\fonts\pk\ljfour\lh\lh-t2a\dpi600\labx1728.pk
+INPUT C:\Users\redner\AppData\Local\MiKTeX\fonts\pk\ljfour\lh\lh-t2a\dpi600\labx1728.pk
