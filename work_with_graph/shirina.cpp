@@ -43,40 +43,6 @@ void print_queue(queue *h) {
     }
 }
 
-struct stack {
-    int inf;
-    stack *next;
-};
-
-void push_stack(stack *&h, int x) {
-    stack *r = new stack;
-    r->inf = x;
-    r->next = h;
-    h = r;
-}
-
-int pop_stack(stack *&h) {
-    int i = h->inf;
-    stack *r = h;
-    h = h->next;
-    delete r;
-    return i;
-}
-
-
-void printStack(stack *h) {
-    stack *temp = NULL;
-    stack *current = h;
-    while (current) {
-        push_stack(temp, current->inf);
-        current = current->next;
-    }
-    while (temp) {
-        cout << pop_stack(temp) << " ";
-    }
-}
-
-
 void Graph() {
     Gr[0][1] = 1;
     Gr[0][2] = 1;
@@ -96,34 +62,45 @@ void Graph() {
     Gr[6][5] = 1;
 }
 
-void shirina(int x){
+void find(int start, int end) {
     queue *head = NULL;
     queue *tail = NULL;
-    int A[N] = {0};  // · создаем массив A и заполняем его нулями
-    A[x] = 1; //помечаем вершину x как посещенную
-    vector<int> result; // результат
-    push_queue(head, tail, x);
-    while (head) {
-        int h = pop_queue(head, tail); //извлекаем голову очереди(ч)
+    int A[N] = {0};
+    int parent[N];
+    for (int i = 0; i < N; i++){
+        parent[i] = -1;
+    }
+    A[start] = 1;
+    push_queue(head, tail, start);
+    bool found = false;
+    while (head && !found) {
+        int x = pop_queue(head, tail);
         for (int i = 0; i < N; i++) {
-            if (Gr[h][i] == 1 && A[i] == 0){ // существует непосещенная вершина, смежная x (A[Gr[x][i]] == 0)
-                A[i] = 1; // помечаем Gr[h][i] как посещенную вершину
-                result.push_back(i);
-                push_queue(head, tail, i); //помещаем ее в очередь
+            if (Gr[x][i] == 1 && A[i] == 0) {
+                A[i] = 1;
+                parent[i] = x;
+                push_queue(head, tail, i);
+                if (i == end) {
+                    found = true;
+                    break;
+                }
             }
         }
     }
-    bool flag = true;
-    for(int i = 0; i < N; i++){
-        if (A[i] == 0){
-            cout << "Граф несвязный";
-            flag = false;
-            break;
+    if (found){
+        int path[64]; 
+        int count = 0;
+        int step = end;
+        while (step != -1) {
+            path[count++] = step;
+            step = parent[step];
         }
-    }
-    if (flag){
-        cout << "Граф связный";
-    }
+        for (int i = count - 1; i >= 0; i--) {
+            cout << path[i];
+            if (i > 0) cout << " -> ";
+        }
+        cout << endl;
+    } 
 }
 
 void print_graph() {
@@ -142,8 +119,13 @@ void print_graph() {
 
 int main(){
     setlocale(LC_ALL,"RUS");
+    int A, B;
+    cout << "Введите A = "; cin >> A;
+    cout << "Введите B = "; cin >> B;
+    cout << endl;
     Graph();
     print_graph();
-    shirina(0);
+    cout << "Кратчайший путь из " << A << " в " << B << ": ";
+    find(A, B);
     return 0;
 }
