@@ -1,5 +1,4 @@
 #include <iostream>
-#include <vector>
 using namespace std;
 
 const int N = 7;
@@ -10,46 +9,44 @@ void Graph() {
     for (int i = 0; i < N; i++) {
         sizeGr[i] = 0;
     }
-    Gr[0][sizeGr[0]++] = 1;
-    Gr[0][sizeGr[0]++] = 2;
-    Gr[0][sizeGr[0]++] = 4;
-    Gr[0][sizeGr[0]++] = 5;
-    Gr[1][sizeGr[1]++] = 0;
-    Gr[1][sizeGr[1]++] = 3;
-    Gr[2][sizeGr[2]++] = 0;
-    Gr[2][sizeGr[2]++] = 5;
-    Gr[3][sizeGr[3]++] = 1;
-    Gr[4][sizeGr[4]++] = 0;
-    Gr[4][sizeGr[4]++] = 6;
-    Gr[5][sizeGr[5]++] = 0;
-    Gr[5][sizeGr[5]++] = 2;
-    Gr[5][sizeGr[5]++] = 6;
-    Gr[6][sizeGr[6]++] = 4;
-    Gr[6][sizeGr[6]++] = 5;
+    Gr[0][1] = 1;
+    Gr[0][2] = 1;
+    Gr[0][4] = 1;
+    Gr[0][5] = 1;
+    Gr[1][0] = 1;
+    Gr[1][3] = 1;
+    Gr[2][0] = 1;
+    Gr[2][5] = 1;
+    Gr[3][1] = 1;
+    Gr[4][0] = 1;
+    Gr[4][6] = 1;
+    Gr[5][0] = 1;
+    Gr[5][2] = 1;
+    Gr[5][6] = 1;
+    Gr[6][4] = 1;
+    Gr[6][5] = 1;
 }
 
 void add_edge(int a, int b) {
     bool smej = true;
-    for(int i; i < N;i++){
-        if (Gr[a][i] == b){
-            smej = false;
-            cout << "¬ершины уже смешные" << endl << endl;
-            break;
-        }
+    if (Gr[a][b] == 1){
+        smej = false;
+        cout << "¬ершины уже смешные" << endl << endl;
     }
     if (smej){
-        Gr[a][sizeGr[a]++] = b;  // из a можно перейти в b
-        Gr[b][sizeGr[b]++] = a;  // из b можно перейти в a
+        Gr[a][b] = 1;  // из a можно перейти в b
+        Gr[b][a] = 1;  // из b можно перейти в a
     }
 }
 
 void print_graph() {
     cout << "—писок смежности" << endl;
     for (int i = 0; i < N; i++) { 
-        cout << i << " -> "; // вершина
-        for (int j = 0; j < sizeGr[i]; j++) {
-            cout << Gr[i][j]; // еЄ смежные
-            if (j < sizeGr[i] - 1) cout << " -> ";
+        cout << i; // вершина
+        for (int j = 0; j < N; j++) {
+            if (Gr[i][j] == 1){
+                cout << " -> " << j;
+            }
         }
         cout << endl;
     }
