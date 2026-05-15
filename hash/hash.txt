@@ -1,0 +1,33 @@
+Antonov, Design Engineer, 15.03.1985, 9 years, 75000
+Anufriev, System Administrator, 22.07.1990, 7 years, 80000
+Belenky, Software Developer, 10.11.1988, 12 years, 120000
+Belikov, Tester, 05.09.1992, 5 years, 70000
+Belyakov, Data Analyst, 18.02.1991, 8 years, 95000
+Gamayunov, Project Manager, 30.04.1987, 11 years, 110000
+Golovin, UI Designer, 25.08.1993, 4 years, 85000
+Gordienko, Technical Support Specialist, 12.12.1995, 2 years, 60000
+Erofeev, Frontend Developer, 03.06.1994, 4 years, 100000
+Zemtsov, Backend Developer, 19.10.1989, 9 years, 115000
+Katkova, Accountant, 07.01.1986, 13 years, 78000
+Koblov, System Analyst, 14.05.1984, 15 years, 105000
+Kozin, Department Head, 21.09.1982, 17 years, 139999
+Kolesnikova, HR Manager, 09.03.1990, 8 years, 73000
+Lebedev, Technical Writer, 16.11.1987, 10 years, 68000
+Magomedov, DevOps Engineer, 28.02.1988, 11 years, 130000
+Maksimova, Marketer, 04.07.1991, 6 years, 82000
+Pogorelova, Office Manager, 11.04.1995, 2 years, 55000
+Popov, Web Developer, 23.08.1992, 5 years, 90000
+Ryabokon, Network Engineer, 17.12.1986, 12 years, 88000
+Sidorenko, Business Analyst, 02.10.1989, 9 years, 98000
+Smirnov, Software Architect, 08.06.1984, 15 years, 140000
+Terentyev, Data Scientist, 26.01.1990, 8 years, 125000
+Tereshkov, Test Engineer, 13.09.1991, 6 years, 72000
+Trofimov, Product Manager, 19.05.1985, 13 years, 135000
+Uchuskin, Java Developer, 31.03.1988, 11 years, 118000
+Fokin, Python Developer, 24.07.1993, 4 years, 108000
+Khokhlov, Mobile Developer, 06.11.1990, 8 years, 112000
+Sharova, Technical Designer, 15.02.1989, 9 years, 77000
+Shevchenko, Content Editor, 20.08.1992, 5 years, 63000
+Shkodin, Security Specialist, 27.04.1987, 11 years, 95000
+Yashin, Content Editor, 10.06.1998, less than a year, 41000
+Yashin, Trainee Developer, 10.06.1998, less than a year, 40000
