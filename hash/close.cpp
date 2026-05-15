@@ -35,14 +35,14 @@ vector<people> inFile(){
     vector<people> x;
     people temp;
     string line;
-    while(getline(in, line)){ // читаем построчно
+    while(getline(in, line)){ 
         if(line.empty()) continue;
-        vector<string> parts; //вектор для данных об одном человеке
+        vector<string> parts; 
         string tmp; 
         for(int i = 0; i < line.length(); i++) {
             if(line[i] == ',') {
                 parts.push_back(tmp);
-                tmp.clear();  // очищаем для следующей части
+                tmp.clear();  
                 i++;
             } 
             else {
@@ -50,7 +50,7 @@ vector<people> inFile(){
             }
         }
         if (!tmp.empty()) {
-            parts.push_back(tmp); //добавляем последние данные, если дошли до конца 
+            parts.push_back(tmp); 
         }         
         temp.surname = parts[0];
         temp.post = parts[1];
@@ -79,16 +79,16 @@ struct HashTable{
     bool close = false;
 };
 
-int hashFunction1(int salary, int M) {                         // исправлено: проверка пустой строки
+int hash1(int salary, int M) {                         
     return 1 + (salary % (M-1));
 }
 
-int hashFunction2(const string& experience, int M) {                         // исправлено: проверка пустой строки
+int hash2(const string& experience, int M) {                       
     return (experience[0]+experience[1]) % M;
 }
 
-int hashFunction(const string& experience, int salary,int i, int M) {                         // исправлено: проверка пустой строки
-    return (hashFunction1(salary, M) + i * hashFunction2(experience, M)) % M;
+int h(const string& experience, int salary,int i, int M) {                        
+    return (hash1(salary, M) + i * hash2(experience, M)) % M;
 }
 
 vector<HashTable> buildHash(vector<people> &A, int M){
@@ -96,8 +96,8 @@ vector<HashTable> buildHash(vector<people> &A, int M){
     for (int i = 0; i < A.size(); i++){
         int j = 0;
         while (j < M){
-            int k = hashFunction(A[i].experience, A[i].salary, j, M);
-            if (!table[k].close){
+            int k = h(A[i].experience, A[i].salary, j, M);
+            if (!table[k].close){ // ���� �� ���������
                 table[k].data = A[i];
                 table[k].close = true;
                 break;
@@ -120,12 +120,11 @@ void printHash(vector<HashTable> &table){
     }
 }
 
-void findElement(vector<HashTable> &table, const string& experience, int salary, int M){
-    cout << "Finding salary " << experience << ", year " << salary << endl;
+void find(vector<HashTable> &table, const string& experience, int salary, int M){
     int i = 0;
     bool found = false;
     while (i < M){
-        int k = hashFunction(experience, salary, i, M);
+        int k = h(experience, salary, i, M);
         if (!table[k].close){
             break;
         }
@@ -137,7 +136,7 @@ void findElement(vector<HashTable> &table, const string& experience, int salary,
         i++;
     }
     if (!found){
-        cout << "Unable to find records" << endl;
+        cout << "Not find" << endl;
     }
 }
 
@@ -145,9 +144,7 @@ int main() {
     vector<people> x = inFile();
     int M = 37;
     vector<HashTable> table = buildHash(x, M);
-    
     printHash(table);
-    
     string exp_find;
     int salary_find;
     cout << "find experience and salary" << endl;
@@ -155,6 +152,6 @@ int main() {
     getline(cin, exp_find);
     cout << "salary: ";
     cin >> salary_find;
-    findElement(table, exp_find, salary_find, M);
+    find(table, exp_find, salary_find, M);
     return 0;
 }
