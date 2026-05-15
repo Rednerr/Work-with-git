@@ -32,7 +32,7 @@ struct people {
 };
 
 struct list {
-    people data;  // РїРѕР»Рµ РЅР°Р·С‹РІР°РµС‚СЃСЏ data
+    people data;
     list *next;
     list *prev;
 };
@@ -50,17 +50,6 @@ void push(list *&h, list *&t, people x) {
         r->prev = t;
     }
     t = r;
-}
-
-list *find(list *h,  string experience){
-    list *p = h;
-    while (p){
-        if (p->data.experience == experience){
-            break;
-        }
-        p = p -> next;
-    }
-    return p;
 }
 
 void del_node (list *&h, list *&t, list *r){
@@ -107,14 +96,14 @@ vector<people> inFile(){
     vector<people> x;
     people temp;
     string line;
-    while(getline(in, line)){ // С‡РёС‚Р°РµРј РїРѕСЃС‚СЂРѕС‡РЅРѕ
-        if(line.empty()) continue;
-        vector<string> parts; //РІРµРєС‚РѕСЂ РґР»СЏ РґР°РЅРЅС‹С… РѕР± РѕРґРЅРѕРј С‡РµР»РѕРІРµРєРµ
+    while(getline(in, line)){ 
+        if(line.empty()) continue; //если строка пустая проспускаем
+        vector<string> parts; 
         string tmp; 
         for(int i = 0; i < line.length(); i++) {
             if(line[i] == ',') {
                 parts.push_back(tmp);
-                tmp.clear();  // РѕС‡РёС‰Р°РµРј РґР»СЏ СЃР»РµРґСѓСЋС‰РµР№ С‡Р°СЃС‚Рё
+                tmp.clear();  
                 i++;
             } 
             else {
@@ -122,7 +111,7 @@ vector<people> inFile(){
             }
         }
         if (!tmp.empty()) {
-            parts.push_back(tmp); //РґРѕР±Р°РІР»СЏРµРј РїРѕСЃР»РµРґРЅРёРµ РґР°РЅРЅС‹Рµ, РµСЃР»Рё РґРѕС€Р»Рё РґРѕ РєРѕРЅС†Р° 
+            parts.push_back(tmp);  
         }         
         temp.surname = parts[0];
         temp.post = parts[1];
@@ -135,23 +124,19 @@ vector<people> inFile(){
 }
 
 struct HashTable {
-    list* head;      //С‚РµРїРµСЂСЊ СЌС‚Рѕ СѓРєР°Р·Р°С‚РµР»СЊ РЅР° РіРѕР»РѕРІСѓ РѕРґРЅРѕРіРѕ СЃРїРёСЃРєР°
-    list* tail;       // СѓРєР°Р·Р°С‚РµР»СЊ РЅР° С…РІРѕСЃС‚ РѕРґРЅРѕРіРѕ СЃРїРёСЃРєР°
+    list* head; 
+    list* tail;      
 };
 
-int hashFunction(const string& experience, int M) {                         // РёСЃРїСЂР°РІР»РµРЅРѕ: РїСЂРѕРІРµСЂРєР° РїСѓСЃС‚РѕР№ СЃС‚СЂРѕРєРё
+int hashFunction(const string& experience, int M) { //деление по стажу
     return (experience[0]+experience[1]) % M;
 }
 
 vector<HashTable> buildHash(vector<people> &A, int M){
-    vector<HashTable> table(M);
-    for (int i = 0; i < M; i++){
-        table[i].head = NULL;
-        table[i].tail = NULL;
-    }
+    vector<HashTable> table(M); //вектор из M таблиц
     for (int i = 0; i < A.size(); i++){
-        int k = hashFunction(A[i].experience, M);
-        push(table[k].head, table[k].tail, A[i]);
+        int k = hashFunction(A[i].experience, M); //индекс корзины по стажу
+        push(table[k].head, table[k].tail, A[i]); //добавляем в эту корзину
     }
     return table;
 }
@@ -172,43 +157,38 @@ void printHash(vector<HashTable> &table){
         }
     }
 }
-// ---------------------------------------------------------------------
-// РђР›Р“РћР РРўРњ 2: РџРѕРёСЃРє СЌР»РµРјРµРЅС‚Р°
-// ---------------------------------------------------------------------
-void findElement(vector<HashTable> &table, int M, const string& experience) {
-    int k = hashFunction(experience, M);
-    list* current = table[k].head;
+
+void find(vector<HashTable> &table, int M, const string& experience) {
+    int k = hashFunction(experience, M); //индекс корзины по стажу
+    list* p = table[k].head;
     bool found = true;
-    while (current) {
-        if (current->data.experience == experience) {
-            print(current -> data);
+    while (p) {
+        if (p->data.experience == experience) {
+            print(p -> data);
             found = false;
         }
-        current = current->next;
+        p = p->next;
     }
     if (found){
         cout <<"Not found " << experience << endl;
     }
 }
 
-// ---------------------------------------------------------------------
-// РђР›Р“РћР РРўРњ 2: РЈРґР°Р»РµРЅРёРµ СЌР»РµРјРµРЅС‚Р°
-// ---------------------------------------------------------------------
-void deleteElement(vector<HashTable> &table, int M, const string& experience) {
-    int k = hashFunction(experience, M);
-    list* current = table[k].head;
-    while (current) {
-        list* next = current -> next;
-        if (current->data.experience == experience) {
-            del_node(table[k].head, table[k].tail, current);
+void del(vector<HashTable> &table, int M, const string& experience) {
+    int k = hashFunction(experience, M);//индекс корзины по стажу
+    list* p = table[k].head;
+    while (p) {
+        list* next = p -> next;
+        if (p->data.experience == experience) {
+            del_node(table[k].head, table[k].tail, p);
         }
-        current = next;
+        p = p->next;
     }
 }
 
 int main() {
     vector<people> x = inFile();
-    int M = 33;
+    int M = 31;
     vector<HashTable> table = buildHash(x, M);
     
     printHash(table);
@@ -216,12 +196,12 @@ int main() {
     string exp_find;
     cout << "find experience: ";
     getline(cin, exp_find);
-    findElement(table, M, exp_find);
+    find(table, M, exp_find);
     cout << endl;
     string exp_del;
     cout << "delete experience: "; 
     getline(cin, exp_del);
-    deleteElement(table, M, exp_del);
+    del(table, M, exp_del);
     cout << endl;
     cout << "Table after delete:" << endl;
     cout << endl;
