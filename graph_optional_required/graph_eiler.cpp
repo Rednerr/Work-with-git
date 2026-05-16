@@ -7,7 +7,7 @@ using namespace std;
 
 
 const int N = 7;
-int Gr[N][N];     // СЃРїРёСЃРѕРє СЃРјРµР¶РЅРѕСЃС‚Рё
+int Gr[N][N];     // список смежности
 int sizeGr[N] = {0};
 
 struct stack {
@@ -32,10 +32,10 @@ int pop_stack(stack *&h) {
 
 
 int printStack(stack *h) {
-    int count_stack = 0; //СЃС‡С‘С‚С‡РёРє
+    int count_stack = 0; //счётчик
     stack *temp = NULL;
     stack *current = h;
-    if (h == NULL){ // РµСЃР»Рё СЌР»РµРјРµРЅС‚РѕРІ РЅРµС‚ 
+    if (h == NULL){ // если элементов нет 
         cout << setw(15) <<  "empty";
         return 5;
     }
@@ -47,7 +47,7 @@ int printStack(stack *h) {
         cout << pop_stack(temp) << " ";
         count_stack += 2;
     }
-    return count_stack; // РґР»СЏ setw
+    return count_stack; // для setw
 }
 
 
@@ -55,21 +55,21 @@ void Graph() {
     for (int i = 0; i < N; i++) {
         sizeGr[i] = 0;
     }
-    Gr[0][sizeGr[0]++] = 1; // РґР»СЏ 0
+    Gr[0][sizeGr[0]++] = 1; // для 0
     Gr[0][sizeGr[0]++] = 2;
     Gr[0][sizeGr[0]++] = 4;
     Gr[0][sizeGr[0]++] = 5;
-    Gr[1][sizeGr[1]++] = 0; // РґР»СЏ 1
+    Gr[1][sizeGr[1]++] = 0; // для 1
     Gr[1][sizeGr[1]++] = 3;
-    Gr[2][sizeGr[2]++] = 0;// РґР»СЏ 2
+    Gr[2][sizeGr[2]++] = 0;// для 2
     Gr[2][sizeGr[2]++] = 5;
-    Gr[3][sizeGr[3]++] = 1;// РґР»СЏ 3
-    Gr[4][sizeGr[4]++] = 0;// РґР»СЏ 4
+    Gr[3][sizeGr[3]++] = 1;// для 3
+    Gr[4][sizeGr[4]++] = 0;// для 4
     Gr[4][sizeGr[4]++] = 6;
-    Gr[5][sizeGr[5]++] = 0;// РґР»СЏ 5
+    Gr[5][sizeGr[5]++] = 0;// для 5
     Gr[5][sizeGr[5]++] = 2;
     Gr[5][sizeGr[5]++] = 6;
-    Gr[6][sizeGr[6]++] = 4; // РґР»СЏ 6
+    Gr[6][sizeGr[6]++] = 4; // для 6
     Gr[6][sizeGr[6]++] = 5;
 }
 
@@ -102,11 +102,11 @@ bool glubina(int x) {
 }
 
 void print_graph() {
-    cout << "РЎРїРёСЃРѕРє СЃРјРµР¶РЅРѕСЃС‚Рё" << endl;
+    cout << "Список смежности" << endl;
     for (int i = 0; i < N; i++) { 
-        cout << i << " -> "; //РІРµСЂС€РёРЅР°
+        cout << i << " -> "; //вершина
         for (int j = 0; j < sizeGr[i]; j++) {
-            cout << Gr[i][j]; //РµС‘ СЃРјРµР¶РЅС‹Рµ
+            cout << Gr[i][j]; //её смежные
             if (j < sizeGr[i] - 1) cout << " -> ";
         }
         cout << endl;
@@ -133,7 +133,7 @@ void eiler() {
             odd.push_back(v);
     }
     if (odd.size() != 0 && odd.size() != 2) {
-        cout << "РљРѕР»РёС‡РµСЃС‚РІРѕ РЅРµС‡С‘С‚РЅС‹С… РІРµСЂС€РёРЅ РЅРµ 0 Рё РЅРµ 2" << endl;
+        cout << "Количество нечётных вершин не 0 и не 2" << endl;
         return;
     }
     int x = -1;
@@ -149,7 +149,7 @@ void eiler() {
         }
     }
     if (!glubina(x)) {
-        cout << "Р“СЂР°С„ РЅРµСЃРІСЏР·РЅС‹Р№" << endl;
+        cout << "Граф несвязный" << endl;
         return;
     }
     bool dop_edge = (odd.size() == 2);
@@ -187,7 +187,7 @@ void eiler() {
             vector<int> newRes;
             for (size_t i = idx + 1; i < res.size(); ++i)
                 newRes.push_back(res[i]);
-            // С‡Р°СЃС‚СЊ РѕС‚ 1 РґРѕ idx
+            // часть от 1 до idx
             for (int i = 1; i <= idx; ++i)
                 newRes.push_back(res[i]);
             res = move(newRes);
@@ -204,7 +204,7 @@ int main() {
     setlocale(LC_ALL, "RUS");
     Graph();
     print_graph();
-    cout << "Р­Р№Р»РµСЂРѕРІ РїСѓС‚СЊ" << endl;
+    cout << "Эйлеров путь" << endl;
     eiler();
     return 0;
 }
