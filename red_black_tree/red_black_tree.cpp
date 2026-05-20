@@ -1,0 +1,254 @@
+#include <iostream>
+#include <string>
+#include <vector>
+#include <sstream>
+using namespace std;
+
+struct tree{
+    int inf;
+    tree* left, * right;
+    tree* parent;
+    char color;
+};
+
+void left_rotate(tree*& tr, tree* x) {
+    tree* y = x->right;
+    x->right = y->left;
+    if (y->left) {
+        y->left->parent = x;
+    }
+    y->parent = x->parent;
+    
+    // ГЛАВНОЕ ИСПРАВЛЕНИЕ:
+    if (x->parent == nullptr) {
+        tr = y;  // y становится новым корнем
+    } else if (x->parent->left == x) {
+        x->parent->left = y;
+    } else {
+        x->parent->right = y;
+    }
+    
+    y->left = x;
+    x->parent = y;
+    
+    if (y->parent == nullptr) {
+        y->color = 'b';
+    }
+}
+
+void right_rotate(tree*& tr, tree* x) {
+    tree* y = x->left;
+    x->left = y->right;
+    if (y->right) {
+        y->right->parent = x;
+    }
+    y->parent = x->parent;
+    
+    // ГЛАВНОЕ ИСПРАВЛЕНИЕ:
+    if (x->parent == nullptr) {
+        tr = y;  // y становится новым корнем
+    } else if (x->parent->left == x) {
+        x->parent->left = y;
+    } else {
+        x->parent->right = y;
+    }
+    
+    y->right = x;
+    x->parent = y;
+    
+    if (y->parent == nullptr) {
+        y->color = 'b';
+    }
+}
+
+tree* root(int x){
+    tree*n = new tree;
+    n->inf = x;
+    n->left = n->right = nullptr;
+    n->parent = nullptr;
+    n->color = 'b';
+    return n;
+}
+
+tree* node(tree* prev, int x){
+    tree* n = new tree;
+    n->inf = x;
+    n->left = n->right = nullptr;
+    n->parent = prev;
+    n->color = 'r';
+    return n;
+}
+
+tree* grandfather(tree* x){
+    if (x && x->parent){
+        return x->parent->parent;
+    }
+    else{
+        return nullptr;
+    }
+} 
+
+tree* uncle(tree *x){
+    tree* g = grandfather(x);
+    if (!g){
+        return nullptr;
+    }
+    if(x->parent == g->left){
+        return g->right;
+    }
+    else{
+        return g->left;
+    }
+}
+
+tree* brother(tree* x){
+    if (x && x->parent){
+        if (x == x->parent->left){
+            return x->parent->right;
+        }
+        else{
+            return x->parent->left;
+        }
+    }
+    else{
+        return nullptr;
+    }
+}
+
+void insert_case_1(tree*& tr, tree* x);
+void insert_case_2(tree*& tr, tree* x);
+void insert_case_3(tree*& tr, tree* x);
+void insert_case_4(tree*& tr, tree* x);
+void insert_case_5(tree*& tr, tree* x);
+
+void insert_case_1(tree*& tr, tree* x){
+    if (!x->parent){
+        x->color = 'b';
+    }
+    else{
+        insert_case_2(tr, x);
+    }
+}
+
+void insert_case_2(tree*& tr, tree* x){
+    if (x->parent->color == 'r'){
+        insert_case_3(tr,x);
+    }
+}
+
+void insert_case_3(tree*& tr, tree* x){
+    tree* g = grandfather(x);
+    tree* u = uncle(x);
+    if (u && u->color == 'r' && x->parent->color == 'r'){
+        x->parent->color = 'b';
+        u->color = 'b';
+        g->color = 'r';
+        insert_case_1(tr,g);
+    }
+    else{
+        insert_case_4(tr,x);
+    }
+}
+
+void insert_case_4(tree*& tr, tree* x) {
+    tree* g = grandfather(x);
+    if (!g) {
+        insert_case_5(tr, x);
+        return;
+    }
+    tree* p = x->parent;
+    if (p->right == x && g->left == p) {
+        left_rotate(tr, x);
+        x = x->left;
+    } else if (p->left == x && g->right == p) {
+        right_rotate(tr, x);
+        x = x->right;
+    }
+    insert_case_5(tr, x);
+}
+
+void insert_case_5(tree*& tr, tree* x) {
+    tree* g = grandfather(x);
+    if (!g) return;
+    tree* p = x->parent;
+    p->color = 'b';
+    g->color = 'r';
+    if (x == p->right && p == g->right) {
+        left_rotate(tr, g);
+    } else {
+        right_rotate(tr, g);
+    }
+}
+
+void insert(tree*& tr, int x) {  // переименовал root -> tr
+    if (tr == nullptr) {
+        tr = ::root(x);  // теперь ::root(x) вызывает глобальную функцию
+        return;
+    }
+    
+    if (x < tr->inf) {
+        if (tr->left == nullptr) {
+            tr->left = node(tr, x);
+            insert_case_1(tr, tr->left);
+        } else {
+            insert(tr->left, x);
+        }
+    } else if (x > tr->inf) {
+        if (tr->right == nullptr) {
+            tr->right = node(tr, x);
+            insert_case_1(tr, tr->right);
+        } else {
+            insert(tr->right, x);
+        }
+    }
+}
+
+int max(int a, int b) {
+    if (a > b) {
+        return a;
+    } else {
+        return b;
+    }
+}
+
+int height(tree* node) {
+    if (node == nullptr) {
+        return -1;
+    }
+    int left = height(node->left);
+    int right = height(node->right);
+    return 1 + max(left, right);
+}
+
+void inorder_print(tree* node) {
+    if (node == nullptr) return;
+    inorder_print(node->left);
+    std::cout << node->inf << "(" << node->color << ") ";
+    inorder_print(node->right);
+}
+
+tree* search(tree* root, int value) {
+    if (root == nullptr || root->inf == value) {
+        return root;
+    }
+    if (value < root->inf) {
+        return search(root->left, value);
+    } else {
+        return search(root->right, value);
+    }
+}
+
+int main(){
+    setlocale(LC_ALL,"RUS");
+    std::vector<int> v = {10, 5, 15, 3, 7, 13, 18, 20, 1};
+    tree* root = nullptr;
+    for (int val : v) {
+        insert(root, val);
+    }
+    inorder_print(root);
+    int target;
+    cout << "Введите узел: "; cin >> target;
+    tree* node = search(root, target);
+    cout << "Высота: " << height(node);
+    return 0;
+}
