@@ -20,9 +20,11 @@ void left_rotate(tree*& tr, tree* x) {
     y->parent = x->parent;
     if (x->parent == nullptr) {
         tr = y;
-    } else if (x->parent->left == x) {
+    } 
+    else if (x->parent->left == x) {
         x->parent->left = y;
-    } else {
+    } 
+    else {
         x->parent->right = y;
     }
     y->left = x;
@@ -41,9 +43,11 @@ void right_rotate(tree*& tr, tree* x) {
     y->parent = x->parent;
     if (x->parent == nullptr) {
         tr = y;
-    } else if (x->parent->left == x) {
+    } 
+    else if (x->parent->left == x) {
         x->parent->left = y;
-    } else {
+    } 
+    else {
         x->parent->right = y;
     }
     y->right = x;
@@ -192,6 +196,206 @@ void insert(tree*& tr, tree* prev, int x) {
     }
 }
 
+
+void delete_case1(tree *&tr, tree *x);
+void delete_case2(tree *&tr, tree *x);
+void delete_case3(tree *&tr, tree *x);
+void delete_case4(tree *&tr, tree *x);
+void delete_case5(tree *&tr, tree *x);
+void delete_case6(tree *&tr, tree *x);
+
+void delete_case1(tree *&tr, tree *x){
+    if(!x -> parent){
+        if(x -> left){
+            tr = x -> left;
+        }
+        else{
+            tr = x -> right;
+        }
+    }
+    else{
+        delete_case2(tr, x);
+    }
+}
+
+void delete_case2(tree *&tr, tree *x){
+    tree* B = brother(x);
+    tree* P = x->parent;
+    if(B && B->color == 'r'){
+        P->color = 'r';
+        B->color = 'b';
+        if(P->left == x){
+            left_rotate(tr, P);
+        }
+        else{
+            right_rotate(tr, P);
+        }
+    }
+    delete_case3(tr, x);
+}
+
+
+void delete_case3(tree *&tr, tree *x){
+    tree* B = brother(x);
+    if (x->parent->color == 'b' && B->color == 'b' && (!B->left || B->left->color == 'b') \
+        && (!B->right || B->right->color == 'b')){
+        B->color = 'r';
+        delete_case1(tr, x);
+    }
+    else{
+        delete_case4(tr, x);
+    }
+}
+
+void delete_case4(tree *&tr, tree *x){
+    tree* P = x->parent;
+    tree* B = brother(x);
+    if (x->parent->color == 'r' && B->color == 'b' && (!B->left || B->left->color == 'b') \
+        && (!B->right || B->right->color == 'b')){
+        B->color = 'r';
+        P->color = 'b';
+    }
+    else{
+        delete_case5(tr, x);
+    }
+}
+
+void delete_case5(tree *&tr, tree *x){
+    tree* P = x->parent;
+    tree* B = brother(x);
+    if (B->color == 'b'){
+        if(P->left == x && (B->left && B->left->color == 'r') && 
+            (!B->right || B->right->color == 'b')){
+            B->left->color = 'b';
+            B->color = 'r';
+            right_rotate(tr, B);
+        }
+        else if(P->right == x && (B->right && B->right->color == 'r') &&
+            (!B->left || B->left->color == 'b')){
+            B->right->color = 'b';
+            B->color = 'r';
+            left_rotate(tr, B);
+        }
+    }
+    delete_case6(tr, x);
+}
+
+void delete_case6(tree *&tr, tree *x){
+    tree* B = brother(x);
+    B->color = x->parent->color;
+    x->parent->color = 'b';
+    if (x == x->parent->left){
+        if(B->right){
+            B->right->color = 'b';
+            left_rotate(tr, x->parent);
+        }
+        else{
+            B->left->color = 'b';
+            right_rotate(tr, x->parent);
+            right_rotate(tr, x->parent);
+        }
+    }
+}
+
+void replace(tree *&tr, tree *x){
+    tree *ch;
+    if(x -> left){
+        ch = x -> left;
+        ch -> parent = x -> parent;
+        if(x -> parent){
+            if(x == x->parent->left){
+                x->parent->left = ch;
+            }
+            else{
+                x->parent->right = ch;
+            }
+        }
+    }
+    else{
+        ch = x->right;
+        ch->parent = x->parent;
+        if(x->parent){
+            if(x == x->parent->left){
+                x -> parent->left = ch;
+            }
+            else{
+                x->parent -> right = ch;
+            }
+        }
+    }
+}
+
+tree *max_right(tree *x){
+    while(x -> right){
+        x = x -> right;
+    }
+    return x;
+}
+
+tree *max_left(tree *x){
+    while(x -> left){
+        x = x -> left;
+    }
+    return x;
+}
+
+void Delete(tree *&tr, tree *x){
+    if(x->left && x->right){
+        tree *buf;
+        if(x->inf <= tr->inf){
+            buf = max_right(x->left);
+        }
+        else{
+            buf = max_left(x->right);
+        }
+        x->inf = buf->inf;
+        x = buf;
+    }
+
+    if(x->left || x->right){
+        tree *ch;
+        if(x->left){
+            ch = x->left;
+        }
+        else{
+            ch = x->right;
+        }
+        replace(tr, x);
+        if(x->color == 'b'){
+            if(ch->color == 'r'  ){
+                ch->color = 'b';
+            }
+            else{
+                delete_case1(tr, ch);
+            }
+        }
+        delete x;
+        return;
+    }
+    if(x->color == 'b'){
+        delete_case1(tr, x);
+        if(x->parent){ 
+            if(x == x->parent->left){
+                x->parent->left = NULL;
+            }
+            else{
+                x->parent->right = NULL;
+            }
+        }
+    }
+    else{
+        if(x->parent){
+            if(x == x->parent->left){
+                x->parent->left = NULL;
+            }
+            else{
+                x->parent->right = NULL;
+            }
+        }
+    }
+    delete x;
+}
+
 int max(int a, int b) {
     if (a > b) {
         return a;
@@ -209,11 +413,11 @@ int height(tree* node) {
     return 1 + max(left, right);
 }
 
-void inorder_print(tree* node) {
+void print(tree* node) {
     if (node == nullptr) return;
-    inorder_print(node->left);
+    print(node->left);
     cout << node->inf << "(" << node->color << ") ";
-    inorder_print(node->right);
+    print(node->right);
 }
 
 tree* search(tree* tr, int x) {
@@ -230,25 +434,29 @@ tree* search(tree* tr, int x) {
 
 int main(){
     setlocale(LC_ALL,"RUS");
-    cout << "Вывод высоты узла" << endl;
-    vector<int> vec;
+    tree *tr = nullptr;
     string str;
-    cout << "Введите числа: ";
+    cout << "Введите числа через пробел: ";
     getline(cin, str);
-    int x;
     stringstream ss(str);
-    while (ss >> x){
+    vector<int> vec;
+    int x;
+    while (ss >> x) {
         vec.push_back(x);
     }
-    tree* tr = nullptr;
-    for(int i : vec){
-        insert(tr, nullptr, i);
+    tr = root(vec[0]);
+    for (size_t i = 1; i < vec.size(); i++) {
+        insert(tr, tr, vec[i]);
     }
-    inorder_print(tr);
+    print(tr);
     cout << endl;
     int target;
     cout << "Введите узел: "; cin >> target;
     tree* node = search(tr, target);
-    cout << "Высота: " << height(node);
+    cout << "Высота: " << height(node) << endl;
+    int dell;
+    cout << "Введите удаляемый узел: "; cin >> dell;
+    Delete(tr,search(tr, dell));
+    print(tr);
     return 0;
 }
